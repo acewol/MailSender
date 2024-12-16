@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import requests
+import base64
 from requests.structures import CaseInsensitiveDict
 
 def send_pdf_emails_via_api(folder_path, excel_path, token):
@@ -45,7 +46,7 @@ def send_pdf_emails_via_api(folder_path, excel_path, token):
                 pdf_content = f.read()
 
             # Кодируем файл в Base64
-            encoded_pdf = pdf_content.encode('base64').decode('utf-8')
+            encoded_pdf = base64.b64encode(pdf_content).decode('utf-8')
 
             # Формируем тело запроса
             email_body = {
@@ -85,3 +86,4 @@ send_pdf_emails_via_api(
     excel_path="./recipients.xlsx",  # Путь к Excel файлу
     token="your_access_token"  # Токен доступа OAuth2
 )
+
